@@ -38,6 +38,9 @@ RUN apt-get install -y git
 # install nano
 RUN apt-get install -y nano
 
+# install sudo
+RUN apt-get install -y sudo
+
 # remove download archive files
 RUN apt-get clean
 
@@ -61,6 +64,9 @@ RUN update-alternatives --install /usr/bin/java java $JAVA_HOME/bin/java 20000 &
 ADD http://mirrors.jenkins-ci.org/war/1.574/jenkins.war /opt/jenkins.war
 RUN chmod 644 /opt/jenkins.war
 ENV JENKINS_HOME /jenkins
+
+#added Jenkins as a user
+USER jenkins
 
 # configure the container to run jenkins, mapping container port 8080 to that host port
 ENTRYPOINT ["java", "-jar", "/opt/jenkins.war"]
